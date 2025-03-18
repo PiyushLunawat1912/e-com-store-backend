@@ -1,12 +1,14 @@
 const express = require("express");
-const mongoose=require("mongoose");
+const mongoose=require ("mongoose");
 const app = express();
 const port = 3000;
+const cors = require("cors")
 const categoryRoutes =require("./routes/category")
 app.get("/",(req,res)=>{
     res.send("Server running")
 });
 
+app.use(cors());
 app.use(express.json());
 app.use("/category",categoryRoutes);
 async function connectDb() {
