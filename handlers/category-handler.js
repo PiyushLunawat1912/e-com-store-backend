@@ -17,6 +17,9 @@ async function getCategories(){
 
 async function getCategoriesById(id){
   let category = await Category.findById(id);
+  // if (!category) {
+  //   throw new Error(`Category with id ${id} not found`);
+  // }
   return category.toObject();
 }
 //UPDATE Category
