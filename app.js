@@ -5,7 +5,7 @@ const port = 3000;
 const cors = require("cors")
 const categoryRoutes =require("./routes/category")
 const brandRoutes =require("./routes/brand")
-
+const productRoutes = require("./routes/product")
 
 app.get("/",(req,res)=>{
     res.send("Server running")
@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/category",categoryRoutes);
 app.use("/brand",brandRoutes);
+app.use("/product",productRoutes)
 async function connectDb() {
    await mongoose.connect("mongodb://localhost:27017",{
     dbName: "e-com-store-db"
