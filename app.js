@@ -6,6 +6,7 @@ const cors = require("cors")
 const categoryRoutes =require("./routes/category")
 const brandRoutes =require("./routes/brand")
 const productRoutes = require("./routes/product")
+const customerRoutes = require("./routes/customer")
 
 app.get("/",(req,res)=>{
     res.send("Server running")
@@ -15,7 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/category",categoryRoutes);
 app.use("/brand",brandRoutes);
-app.use("/product",productRoutes)
+app.use("/product",productRoutes);
+app.use("/customer",customerRoutes);
 async function connectDb() {
    await mongoose.connect("mongodb://localhost:27017",{
     dbName: "e-com-store-db"
