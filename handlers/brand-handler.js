@@ -8,8 +8,8 @@ return brands.map(x=> x.toObject());
 }
 
 
-async function getBrand(id){
-    let brand = await Brand.findById(id);
+async function getBrand(_id){
+    let brand = await Brand.findById(_id);
     return brand.toObject();
     
     }
@@ -22,13 +22,13 @@ async function addBrand(model){
     return brand.toObject();
 }
 
-async function updateBrand(id,model){
-await Brand.findByIdAndUpdate(id,model)
+async function updateBrand(_id,model){
+await Brand.findByIdAndUpdate(_id,model)
 }
 
 
-async function deleteBrand(id,){
-    await Brand.findByIdAndDelete(id,)
+async function deleteBrand(_id,){
+    await Brand.findByIdAndDelete(_id,)
     }
 
     module.exports ={getBrands,getBrand,addBrand,updateBrand,deleteBrand }
