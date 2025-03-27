@@ -7,6 +7,8 @@ const { addBrand, updateBrand, deleteBrand, getBrand, getBrands } = require("../
  let model = req.body;  
   let result = await addBrand(model)
       res.send(result); 
+      console.log(result);
+      
  });
 
 
