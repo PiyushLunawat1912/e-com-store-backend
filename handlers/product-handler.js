@@ -61,36 +61,31 @@ async function getProductForListing(
   if (!sortBy) {
     sortBy = "price";
   }
-
-  // ✅ Ensure sortOrder is either 1 or -1
-  if (sortOrder !== 1 && sortOrder !== -1) {
-    sortOrder = -1; // Default to descending
+  if (!sortOrder) {
+    sortOrder = -1;
   }
+
+  console.log("Sorting in Backend - SortBy:", sortBy, "SortOrder:", sortOrder); // Debugging
 
   let queryFilter = {};
   if (searchTerm) {
     queryFilter.$or = [
-      { name: { $regex: ".*" + searchTerm + ".*", $options: "i" } }, // ✅ Case insensitive search
+      { name: { $regex: ".*" + searchTerm + ".*", $options: "i" } },
       { shortDescription: { $regex: ".*" + searchTerm + ".*", $options: "i" } },
     ];
   }
-
-  if (categoryId) {
-    queryFilter.categoryId = {
-      $in: Array.isArray(categoryId) ? categoryId : [categoryId],
-    };
-  }
-
-  if (brandId) {
-    queryFilter.brandId = brandId;
-  }
-
-  console.log("Query Filter:", queryFilter); // ✅ Debugging log
+  if (categoryId) queryFilter.categoryId = categoryId;
+  if (brandId) queryFilter.brandId = brandId;
 
   const products = await Product.find(queryFilter)
-    .sort({ [sortBy]: +sortOrder }) // ✅ Correct sorting
-    .skip((+page - 1) * pageSize)
+    .sort({ [sortBy]: +sortOrder })
+    .skip((+page - 1) * +pageSize)
     .limit(+pageSize);
+
+  console.log(
+    "Backend Sorted Prices:",
+    products.map((p) => p.price)
+  ); // Debugging
 
   return products.map((x) => x.toObject());
 }
