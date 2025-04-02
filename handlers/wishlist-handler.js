@@ -18,7 +18,10 @@ async function removeFromWishList(userId, productId) {
 
 async function getWishList(userId) {
   let wishLists = await Wishlist.find({ userId: userId }).populate("productId");
-  return wishLists.map((x) => x.toObject().productId);
+
+  return wishLists
+    .map((x) => x.toObject().productId)
+    .filter((product) => product !== null);
 }
 
 module.exports = { addToWishList, removeFromWishList, getWishList };

@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
   description: String,
   price: Number,
   discount: Number,
-  images: Array(String),
+  images: [String],
   categoryId: { type: Schema.Types.ObjectId, ref: "categories" },
   brandId: { type: Schema.Types.ObjectId, ref: "brands" },
   isFeatured: Boolean,
