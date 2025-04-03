@@ -11,11 +11,13 @@ const {
   getWishList,
 } = require("../handlers/wishlist-handler");
 const {
-  getCart,
   addToCart,
   getCartItems,
   removeFromCart,
+  clearCart,
 } = require("../handlers/cart-handler");
+
+const { addOrder, getCustomerOrder } = require("../handlers/order-handler");
 
 router.get("/new-products", async (req, res) => {
   const products = await getNewProducts();
@@ -105,4 +107,19 @@ router.delete("/carts/:id", async (req, res) => {
   res.send({ message: "ok" });
 });
 
+router.post("/order", async (req, res) => {
+  const userId = req.user.id;
+  const order = req.body;
+  await addOrder(userId, order);
+  await clearCart(userId);
+  return res.send({
+    message: "Order Placed",
+  });
+});
+
+router.get("/orders", async (req, res) => {
+  const userId = req.user.id;
+  const orders = await getCustomerOrder(userId);
+  return res.send(orders);
+});
 module.exports = router;
