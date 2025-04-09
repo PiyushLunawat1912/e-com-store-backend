@@ -16,7 +16,13 @@ async function getCustomerOrder(userId) {
 }
 
 async function getOrders() {
-  let orders = await Order.find({ userId: userId });
+  let orders = await Order.find();
   return orders.map((x) => x.toObject());
 }
-module.exports = { addOrder, getCustomerOrder, getOrders };
+
+async function updateOrderStatus(id, status) {
+  await Order.findByIdAndUpdate(id, {
+    status: status,
+  });
+}
+module.exports = { addOrder, getCustomerOrder, getOrders, updateOrderStatus };
